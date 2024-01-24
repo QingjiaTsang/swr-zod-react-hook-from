@@ -19,7 +19,7 @@ const LoginForm: FC<TProps> = (props) => {
     trigger: login,
     data: loginData,
     error: loginError,
-    isMutating: loginLoading,
+    isMutating: isLoginLoading,
   } = LoginCaller();
 
   const {
@@ -27,7 +27,7 @@ const LoginForm: FC<TProps> = (props) => {
     handleSubmit,
     watch,
     reset,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginFormDataSchema),
   });
@@ -87,13 +87,13 @@ const LoginForm: FC<TProps> = (props) => {
               </div>
 
               <button
-                disabled={loginLoading}
+                disabled={isSubmitting}
                 className={cn(
                   'bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-8',
-                  loginLoading && 'cursor-not-allowed opacity-50'
+                  isSubmitting && 'cursor-not-allowed opacity-50'
                 )}
               >
-                {loginLoading ? 'Logging In' : 'Log In'}
+                {isSubmitting ? 'Logging In' : 'Log In'}
               </button>
             </form>
             <div className='text-center pt-12 pb-12'>
